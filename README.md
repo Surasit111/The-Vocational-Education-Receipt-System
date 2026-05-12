@@ -18,9 +18,9 @@
 
 | Role | Email | Password |
 |---|---|---|
-| **Super Admin** | `[SUPER_EMAIL_ADDRESS]` | `[SUPER_PASSWORD]` |
-| **Administrator** | `[ADMIN_EMAIL_ADDRESS]` | `[ADMIN_PASSWORD]` |
-| **Staff** | `[STAFF_EMAIL_ADDRESS]` | `[STAFF_PASSWORD]` |
+| **Super Admin** | `superadmin@gmail.com` | `123456789` |
+| **Administrator** | `admin@gmail.com` | `123456789` |
+| **Staff** | `staff@gmail.com` | `123456789` |
 | **General User** | `(No Login Required)` | `Public Access` |
 
 > [!IMPORTANT]
