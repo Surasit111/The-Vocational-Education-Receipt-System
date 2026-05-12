@@ -1,0 +1,229 @@
+.App {
+  min-height: 100vh;
+}
+
+/* Page Container */
+.page-container {
+  padding: 2rem 0;
+  min-height: calc(100vh - 56px);
+}
+
+/* Form Styles */
+.form-container {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Statistics Page */
+.statistics-container {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.filter-section {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+/* Table Container */
+.table-container {
+  overflow-x: auto;
+  margin-top: 2rem;
+}
+
+/* Custom Button Styles */
+.btn-primary {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+  background-color: #5c636a;
+  border-color: #565e64;
+}
+
+/* Badge Styles */
+.badge {
+  font-weight: 500;
+  padding: 0.35em 0.65em;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6c757d;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+/* Loading State */
+.loading-state {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem 0;
+  }
+  
+  .form-container,
+  .statistics-container {
+    padding: 1.5rem;
+  }
+  
+  .filter-section {
+    padding: 1rem;
+  }
+}
+.react-datepicker-popper {
+  z-index: 1050 !important;
+}
+
+/* === ปฏิทิน: ความสูงคงที่ 6 แถวทุกเดือน === */
+.react-datepicker {
+  width: 310px !important;
+  min-height: 320px !important;     /* ความสูงตายตัว */
+  font-size: 14px !important;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.react-datepicker__month-container {
+  width: 100% !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* บังคับให้มี 6 แถวเสมอ */
+.react-datepicker__month {
+  display: grid !important;
+  grid-template-rows: repeat(6, 38px) !important;  /* 6 แถว x 38px */
+  gap: 2px 0 !important;
+  padding: 0 8px !important;
+}
+
+.react-datepicker__week {
+  display: flex;
+  justify-content: space-between;
+  height: 38px !important;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day {
+  width: 38px !important;
+  height: 38px !important;
+  margin: 0 2px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+/* ซ่อนวันนอกเดือน แต่ยังกินพื้นที่ */
+.react-datepicker__day--outside-month {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* หัวข้อ */
+.react-datepicker__header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #ddd;
+  padding: 8px 0 !important;
+  border-radius: 8px 8px 0 0;
+  flex-shrink: 0;
+}
+
+.react-datepicker__day-names {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+  height: 32px !important;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* ปุ่มย้อน/ถัด */
+.react-datepicker__navigation {
+  top: 8px;
+}
+.react-datepicker__navigation--previous { left: 8px; }
+.react-datepicker__navigation--next { right: 8px; }
+
+/* Popper */
+.react-datepicker-popper {
+  z-index: 1050 !important;
+}
+.react-datepicker-popper[data-placement^="bottom"] {
+  margin-top: 8px;
+}
+
+
+/* เพิ่ม smooth transition */
+.page-container {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* ป้องกันการเด้งของตาราง */
+.table-container {
+  min-height: 300px;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Loading state */
+.loading-state {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Empty state */
+.empty-state {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* การ์ดกรอง */
+.filter-section {
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* ตาราง */
+.table-container table {
+  margin-bottom: 0;
+}

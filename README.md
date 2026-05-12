@@ -1,0 +1,103 @@
+# GSW Receipt System (ระบบออกใบเสร็จ กศ.พ.)
+
+> ระบบบริหารจัดการและออกใบเสร็จรับเงิน — บันทึกข้อมูลรวดเร็วผ่าน Public Form, ออกเอกสาร PDF อัตโนมัติ, เก็บประวัติไฟล์ PDF สามารถดูย้อนหลังได้, มีระบบจัดการผู้ใช้และหมวดหมู่, มีระบบจัดการรายงานสรุป
+
+[![React](https://img.shields.io/badge/React-19.2-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-5.0-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-20-339933?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=flat-square&logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+
+## -------------------------------------------------------------------
+
+🔗 **[Live Demo](https://gsw-receipt-system.vercel.app/)**
+
+## -------------------------------------------------------------------
+
+### Demo Credentials
+
+| Role | Email | Password |
+|---|---|---|
+| **Super Admin** | `[SUPER_EMAIL_ADDRESS]` | `[SUPER_PASSWORD]` |
+| **Administrator** | `[ADMIN_EMAIL_ADDRESS]` | `[ADMIN_PASSWORD]` |
+| **Staff** | `[STAFF_EMAIL_ADDRESS]` | `[STAFF_PASSWORD]` |
+| **General User** | `(No Login Required)` | `Public Access` |
+
+> [!IMPORTANT]
+> ระบบมีการจัดลำดับสิทธิ์ผู้ใช้งาน 4 ระดับ: **Super Admin** (สิทธิ์สูงสุด), **Administrator** (ผู้จัดการ Staff), **Staff User** (คนทำงานหลัก), และ **Guest** (ผู้ใช้สาธารณะ) เพื่อความปลอดภัยและถูกต้องของข้อมูล
+
+---
+
+## Screenshots & Demos
+
+### Modern Report Summary
+หน้าจอสรุปรายงานการออกใบเสร็จที่ปรับปรุงใหม่ เน้นความสะอาดตา (Minimalist) ค้นหาข้อมูลย้อนหลังได้รวดเร็ว
+![Report Summary](docs/screenshots/Dashboard.png)
+
+### Hierarchical User Management
+ระบบจัดการผู้ใช้ที่แบ่งระดับสิทธิ์ชัดเจนผ่าน Badge สีสันที่สื่อความหมาย (แดง/ส้ม/เทา) พร้อม Interactive Modals
+![User Management](docs/screenshots/Management.png)
+
+### Public Receipt Issuance Form
+แบบฟอร์มสาธารณะสำหรับการออกใบเสร็จที่รวดเร็ว ไม่ต้อง Login ก็ใช้งานได้ (เจน PDF ทันที ไม่เก็บข้อมูล)
+![Form](docs/screenshots/Form.png)
+
+---
+
+## Key Features
+
+| Feature | รายละเอียด |
+|---|---|
+| **Hierarchical RBAC** | ควบคุมสิทธิ์การเข้าถึงข้อมูลตามบทบาทของผู้ใช้งาน 4 ระดับอย่างเข้มงวด |
+| **Guest PDF Engine** | ออกใบเสร็จ PDF ได้ทันทีโดยไม่เก็บข้อมูลลงระบบ มุ่งเน้นความเป็นส่วนตัว (Privacy First) |
+| **Digital PDF Engine** | เจนไฟล์ใบเสร็จ PDF คุณภาพสูง พร้อมดาวน์โหลดหรือเรียกดูย้อนหลังได้ทันที |
+| **Advanced Management** | จัดการข้อมูลผู้ใช้และหมวดหมู่ผ่าน Modals ที่ทันสมัย รองรับการคลิก Backdrop เพื่อปิด |
+| **Report Summary** | ระบบค้นหาและสรุปรายการใบเสร็จย้อนหลังที่แม่นยำและรวดเร็ว |
+| **Responsive Design** | รองรับการทำงานทุกอุปกรณ์อย่างไร้รอยต่อ (Mobile, Tablet, Desktop) |
+
+---
+
+## Tech Stack & Rationale
+
+| Technology | Version | เหตุผลที่เลือก |
+|---|---|---|
+| **React** | 19.2 | พัฒนา UI ที่ลื่นไหลและจัดการ State ของใบเสร็จที่ซับซ้อนได้อย่างดีเยี่ยม |
+| **Lucide Icons** | Latest | ชุดไอคอนที่สวยงามและมีความหมายชัดเจน (Edit3, Trash2, etc.) |
+| **Node.js / Express** | 4.18 | จัดการ API Endpoints และระบบ Authentication ที่ขยายตัวง่าย |
+| **PostgreSQL (Neon)** | 16 | ฐานข้อมูลแบบ Serverless บน Cloud ที่ขยายตัวได้ง่ายและเสถียรสูง |
+| **Vercel** | Cloud | Deployment Platform สำหรับทั้ง Frontend และ Backend แบบ Serverless |
+| **Bootstrap** | 5.3 | เฟรมเวิร์กที่ช่วยสร้าง Layout ที่เป็นระเบียบและ Responsive |
+
+---
+
+## User Roles & Permissions
+
+| สิทธิ์การใช้งาน | Super Admin | Administrator | Staff (Login) | Guest (Public) |
+|---|:---:|:---:|:---:|:---:|
+| เข้าถึงหน้าฟอร์มสาธารณะ | ✅ | ✅ | ✅ | ✅ |
+| เจน PDF ใบเสร็จทันที | ✅ | ✅ | ✅ | ✅ |
+| บันทึกข้อมูลลงฐานข้อมูล | ✅ | ✅ | ✅ | ❌ |
+| ดูรายงานสรุป | ✅ | ✅ | ✅ | ❌ |
+| เพิ่ม/แก้ไข หมวดหมู่ | ✅ | ✅ | ✅ | ❌ |
+| ลบ หมวดหมู่ | ✅ | ✅ | ❌ | ❌ |
+| เพิ่ม/แก้ไข/ลบ ผู้ใช้ Staff | ✅ | ✅ | ❌ | ❌ |
+| ลบ ผู้ใช้ (admin, staff) | ✅ | ❌ | ❌ | ❌ |
+
+---
+
+## About the Developer
+
+**คุณสุรสิทธิ์ พิมพ์สีดา (Surasit Phimseeda)**
+
+- [surasit.phimseeda111@gmail.com](mailto:surasit.phimseeda111@gmail.com)
+- [github.com/Surasit111](https://github.com/Surasit111)
+
+---
+
+## License
+
+This project is proprietary software. All rights reserved.
+
+---
+
+*Developed with ❤️ for excellence in GSW Financial Management.*
