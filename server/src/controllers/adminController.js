@@ -45,11 +45,12 @@ export const createAdmin = async (req, res) => {
             })
         }
 
-        // ตรวจสอบว่า email ลงท้ายด้วย @lru.ac.th
-        if (!email.endsWith('@lru.ac.th')) {
+        // ตรวจสอบรูปแบบ email เบื้องต้น
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!emailRegex.test(email)) {
             return res.status(400).json({
                 success: false,
-                message: 'กรุณาใช้อีเมล @lru.ac.th เท่านั้น'
+                message: 'กรุณากรอกรูปแบบอีเมลให้ถูกต้อง'
             })
         }
 
@@ -92,36 +93,16 @@ export const createAdmin = async (req, res) => {
 export const updateAdmin = async (req, res) => {
     try {
         const { id } = req.params
-        const { first_name, last_name, phone, email, role } = req.body
         const currentUserId = req.user.id
 
-        // ดึงข้อมูลผู้ที่กำลังจะถูกแก้ไข
+        // Validate input
+        const { first_name, last_name, phone, email, role } = req.body
+        const isCurrentSuperAdmin = req.user.is_primary
+
+        // ดึงข้อมูลผู้ใช้ที่จะถูกแก้ไข
         const targetUser = await User.findById(id)
         if (!targetUser) {
-            return res.status(404).json({ success: false, message: 'ไม่พบผู้ใช้ที่ต้องการแก้ไข' })
-        }
-
-        // ดึงข้อมูลแอดมินคนแรก (Super Admin)
-        const firstAdmin = await User.findFirstAdmin()
-        const isTargetSuperAdmin = firstAdmin && firstAdmin.id === parseInt(id)
-        const isTargetAdmin = targetUser.role === 'admin' && !isTargetSuperAdmin
-
-        // เช็คสิทธิ์ผู้แก้ไข
-        const isCurrentSuperAdmin = firstAdmin && firstAdmin.id === currentUserId
-
-        if (!isCurrentSuperAdmin) {
-            // ถ้าไม่ใช่ Super Admin ห้ามแก้ Super Admin หรือ Admin ระดับเดียวกัน
-            if (isTargetSuperAdmin || isTargetAdmin) {
-                return res.status(403).json({
-                    success: false,
-                    message: 'คุณไม่มีสิทธิ์แก้ไขผู้ใช้ระดับนี้'
-                })
-            }
-        }
-
-        // Validate input
-        if (!first_name || !last_name) {
-            return res.status(400).json({ success: false, message: 'กรุณากรอกชื่อและนามสกุล' })
+            return res.status(404).json({ success: false, message: 'ไม่พบผู้ใช้' })
         }
 
         const updated = await User.updateAdmin(parseInt(id), {

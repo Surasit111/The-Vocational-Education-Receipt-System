@@ -33,8 +33,8 @@ function CategoryPage() {
   const fetchCategories = async () => {
     setLoading(true)
     try {
-      const data = await categoryService.getAll()
-      setCategories(data)
+      const result = await categoryService.getAll()
+      setCategories(result?.data || {})
     } catch (error) {
       toast.error('ไม่สามารถโหลดข้อมูลหมวดหมู่ได้')
     } finally {
@@ -76,7 +76,7 @@ function CategoryPage() {
   const items = categories[activeTab] || []
 
   // Calculate total items across all categories
-  const totalItems = Object.values(categories).reduce((acc, curr) => acc + (curr?.length || 0), 0)
+  const totalItems = Object.values(categories || {}).reduce((acc, curr) => acc + (Array.isArray(curr) ? curr.length : 0), 0)
 
   return (
     <div className="py-5 min-vh-100">

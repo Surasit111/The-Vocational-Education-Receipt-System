@@ -139,7 +139,7 @@ function LoginPage() {
               {/* Info */}
               <div className="text-center mt-3">
                 <small className="text-muted">
-                  💡 ใช้อีเมล @lru.ac.th เท่านั้น
+                  💡 กรุณาใช้รูปแบบอีเมลที่ถูกต้อง (เช่น example@email.com)
                 </small>
               </div>
             </div>

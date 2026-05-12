@@ -145,8 +145,12 @@ function UserManagePage() {
   }
 
   const canDelete = (target) => {
-    if (currentUser?.is_primary) {
-      return target.id !== currentUser.id // ห้ามลบตัวเอง
+    if (target.is_primary) return false // ห้ามลบแอดมินสูงสุด
+    if (target.id === currentUser?.id) return false // ห้ามลบตัวเอง
+    
+    if (currentUser?.is_primary) return true // แอดมินสูงสุดลบคนอื่นได้หมด
+    if (currentUser?.role === 'admin') {
+      return target.role === 'user' // แอดมินปกติลบได้แค่ user
     }
     return false
   }
@@ -303,8 +307,8 @@ function UserManagePage() {
           <Form onSubmit={handleAddAdmin}>
             <Row className="g-3">
               <Col md={12}>
-                <Form.Label className="small fw-bold text-muted">อีเมล (@lru.ac.th)</Form.Label>
-                <Form.Control type="email" name="email" value={formData.email} onChange={handleInputChange} required className="bg-light border-0" placeholder="user@lru.ac.th" />
+                <Form.Label className="small fw-bold text-muted">อีเมล</Form.Label>
+                <Form.Control type="email" name="email" value={formData.email} onChange={handleInputChange} required className="bg-light border-0" placeholder="example@email.com" />
               </Col>
               <Col md={12}>
                 <Form.Label className="small fw-bold text-muted">รหัสผ่าน</Form.Label>

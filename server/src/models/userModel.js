@@ -126,14 +126,14 @@ export const User = {
 
   // อัปเดต admin
   updateAdmin: async (id, userData) => {
-    const { first_name, last_name, phone, email } = userData
+    const { first_name, last_name, phone, email, role } = userData
 
     const result = await pool.query(
       `UPDATE users 
-       SET first_name = $1, last_name = $2, phone = $3, email = $4, updated_at = NOW()
-       WHERE id = $5 AND role = 'admin'
+       SET first_name = $1, last_name = $2, phone = $3, email = $4, role = $5, updated_at = NOW()
+       WHERE id = $6
        RETURNING id, email, first_name, last_name, phone, role`,
-      [first_name, last_name, phone, email, id]
+      [first_name, last_name, phone, email, role, id]
     )
 
     return result.rows[0]
@@ -142,7 +142,13 @@ export const User = {
   // ลบ admin (เปลี่ยน role เป็น user)
   deleteAdmin: async (id) => {
     const result = await pool.query(
-      `UPDATE users SET role = 'user', updated_at = NOW() WHERE id = $1 AND role = 'admin' RETURNING id`,
+      `DELETE FROM users WHERE id = $1 RETURNING id`,
+      [id]
+    )
+  },
+  findById: async (id) => {
+    const result = await pool.query(
+      'SELECT id, email, first_name, last_name, role, is_active, is_primary FROM users WHERE id = $1',
       [id]
     )
     return result.rows[0]

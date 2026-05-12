@@ -175,7 +175,7 @@ function AdminManageModal({ show, onHide }) {
                                                         type="email"
                                                         value={formData.email}
                                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                        placeholder="example@lru.ac.th"
+                                                        placeholder="example@email.com"
                                                         required
                                                     />
                                                 </Form.Group>

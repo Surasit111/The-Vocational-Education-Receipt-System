@@ -28,11 +28,12 @@ export const register = async (req, res) => {
       })
     }
 
-    // ตรวจสอบว่า email ลงท้ายด้วย @lru.ac.th
-    if (!email.endsWith('@lru.ac.th')) {
+    // ตรวจสอบรูปแบบ email เบื้องต้น
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
       return res.status(400).json({
         success: false,
-        message: 'กรุณาใช้อีเมล @lru.ac.th เท่านั้น'
+        message: 'กรุณากรอกรูปแบบอีเมลให้ถูกต้อง'
       })
     }
 

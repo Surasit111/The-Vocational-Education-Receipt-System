@@ -46,8 +46,8 @@ function StatisticsFilter({ onFilter, onClear, nameOptions = [], initialName = '
 
   const fetchCategories = async () => {
     try {
-      const data = await categoryService.getAll()
-      setCategories(data)
+      const result = await categoryService.getAll()
+      setCategories(result.data || {})
     } catch (error) {
       console.error('Error fetching categories:', error)
     }

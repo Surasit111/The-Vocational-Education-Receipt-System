@@ -42,7 +42,7 @@ function StatisticsPage() {
     setError('')
     try {
       const result = await receiptService.getAll(filters)
-      setReceipts(result.data)
+      setReceipts(Array.isArray(result.data) ? result.data : [])
       setCurrentFilters(filters)
       setCurrentPage(1) // Reset to first page on new search
     } catch (err) {
@@ -58,7 +58,7 @@ function StatisticsPage() {
   const fetchNameOptions = async () => {
     try {
       const result = await receiptService.getUniqueNames()
-      setNameOptions(result)
+      setNameOptions(Array.isArray(result.data) ? result.data : [])
     } catch (err) {
       console.error('Error fetching name options:', err)
     }
@@ -70,8 +70,8 @@ function StatisticsPage() {
   // Pagination Logic
   const indexOfLastItem = currentPage * itemsPerPage
   const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  const currentItems = receipts.slice(indexOfFirstItem, indexOfLastItem)
-  const totalPages = Math.ceil(receipts.length / itemsPerPage)
+  const currentItems = Array.isArray(receipts) ? receipts.slice(indexOfFirstItem, indexOfLastItem) : []
+  const totalPages = Math.ceil((receipts?.length || 0) / itemsPerPage)
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
