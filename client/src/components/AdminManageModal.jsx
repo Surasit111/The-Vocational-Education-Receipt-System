@@ -311,7 +311,7 @@ function AdminManageModal({ show, onHide }) {
                                                     <div>
                                                         <strong>{admin.first_name} {admin.last_name}</strong>
                                                         {admin.is_primary && (
-                                                            <Badge bg="warning" text="dark" className="ms-2">🛡️ ผู้ใช้หลัก</Badge>
+                                                            <Badge bg="danger" className="ms-2">🛡️ ผู้ดูแลระบบสูงสุด</Badge>
                                                         )}
                                                         <br />
                                                         <small className="text-muted">
@@ -349,7 +349,7 @@ function AdminManageModal({ show, onHide }) {
                             <div className="alert alert-info mt-3">
                                 <small>
                                     ℹ️ <strong>หมายเหตุ:</strong> การลบผู้ใช้จะเปลี่ยนสถานะเป็นผู้ใช้ปกติ
-                                    ผู้ใช้หลัก (คนแรก) ไม่สามารถแก้ไขหรือลบได้
+                                    ผู้ดูแลระบบสูงสุด (คนแรก) ไม่สามารถแก้ไขหรือลบได้
                                 </small>
                             </div>
                         </>

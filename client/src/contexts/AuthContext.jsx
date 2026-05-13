@@ -85,6 +85,14 @@ export const AuthProvider = ({ children }) => {
     return !!user && !!token
   }
 
+  // ดึงชื่อระดับผู้ใช้งาน
+  const getRoleLabel = (u = user) => {
+    if (!u) return 'ผู้ใช้ทั่วไป'
+    if (u.is_primary) return 'ผู้ดูแลระบบสูงสุด'
+    if (u.role === 'admin') return 'ผู้ดูแลระบบ'
+    return 'ผู้ใช้ทั่วไป'
+  }
+
   const value = {
     user,
     token,
@@ -93,7 +101,8 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     isAdmin,
-    isAuthenticated
+    isAuthenticated,
+    getRoleLabel
   }
 
   return (

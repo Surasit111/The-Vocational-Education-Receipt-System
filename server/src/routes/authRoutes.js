@@ -8,9 +8,9 @@ const router = express.Router()
 // Public routes
 router.post('/register', register)
 router.post('/login', login)
+router.post('/logout', logout)
 
 // Protected routes
 router.get('/me', auth, getMe)
-router.post('/logout', auth, logout)
 
 export default router

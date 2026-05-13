@@ -36,9 +36,14 @@ export const authService = {
   // Logout
   logout: async () => {
     try {
+      // พยายามแจ้ง Server ว่าจะ logout (ถ้าทำได้)
       await api.post('/auth/logout')
     } catch (error) {
-      console.error('Logout error:', error)
+      // ถ้าเฟล (เช่น 401) ก็ไม่เป็นไร เพราะเราจะลบข้อมูลในเครื่องอยู่แล้ว
+      console.log('Server-side logout skipped or failed')
+    } finally {
+      // มั่นใจว่าลบข้อมูลในเครื่องแน่นอน
+      localStorage.removeItem('token')
     }
   }
 }

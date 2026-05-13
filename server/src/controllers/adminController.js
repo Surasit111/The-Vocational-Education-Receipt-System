@@ -105,6 +105,9 @@ export const updateAdmin = async (req, res) => {
             return res.status(404).json({ success: false, message: 'ไม่พบผู้ใช้' })
         }
 
+        const firstAdmin = await User.findFirstAdmin()
+        const isTargetSuperAdmin = firstAdmin && firstAdmin.id === parseInt(id)
+
         const updated = await User.updateAdmin(parseInt(id), {
             first_name,
             last_name,
@@ -146,26 +149,24 @@ export const deleteAdmin = async (req, res) => {
         const firstAdmin = await User.findFirstAdmin()
         const isCurrentSuperAdmin = firstAdmin && firstAdmin.id === currentUserId
         const isTargetSuperAdmin = firstAdmin && firstAdmin.id === parseInt(id)
-        const isTargetAdmin = targetUser.role === 'admin' && !isTargetSuperAdmin
-
+        
         // ป้องกันลบตัวเอง
         if (currentUserId === parseInt(id)) {
             return res.status(403).json({ success: false, message: 'ไม่สามารถลบตัวเองได้' })
         }
 
-        // กฎการลบ:
-        // 1. Super Admin ลบได้ทุกคน (ยกเว้นตัวเอง)
-        // 2. Admin ทั่วไป ลบได้เฉพาะ Staff (role: user) เท่านั้น
-        if (!isCurrentSuperAdmin) {
-            if (isTargetSuperAdmin || isTargetAdmin) {
-                return res.status(403).json({
-                    success: false,
-                    message: 'คุณไม่มีสิทธิ์ลบผู้ใช้ระดับ Admin หรือ Super Admin'
-                })
-            }
+        // เงื่อนไขสิทธิ์การลบ
+        // 1. ถ้าไม่ใช่ Super Admin จะลบได้แค่ User ปกติเท่านั้น
+        if (!isCurrentSuperAdmin && targetUser.role !== 'user') {
+            return res.status(403).json({ success: false, message: 'คุณไม่มีสิทธิ์ลบผู้ดูแลระบบคนอื่น' })
         }
 
-        const deleted = await User.deleteAdmin(parseInt(id))
+        // ป้องกันลบแอดมินสูงสุด
+        if (isTargetSuperAdmin) {
+            return res.status(403).json({ success: false, message: 'ไม่สามารถลบผู้ดูแลระบบสูงสุดได้' })
+        }
+
+        await User.deleteAdmin(parseInt(id))
 
         res.json({
             success: true,

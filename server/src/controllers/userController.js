@@ -121,10 +121,16 @@ export const getAllAdmins = async (req, res) => {
        ORDER BY created_at ASC`
     )
 
+    // เพิ่ม flag is_primary ให้คนแรก (คนแรกที่สร้างคือแอดมินสูงสุด)
+    const adminsWithFlag = result.rows.map((admin, index) => ({
+      ...admin,
+      is_primary: index === 0
+    }))
+
     res.json({
       success: true,
-      total: result.rows.length,
-      data: result.rows
+      total: adminsWithFlag.length,
+      data: adminsWithFlag
     })
 
   } catch (error) {

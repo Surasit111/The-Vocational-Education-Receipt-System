@@ -59,9 +59,15 @@ function ContactModal({ show, onHide }) {
                   <div className="admin-contact-card p-4 rounded-4 border bg-white shadow-sm h-100 border-light">
                     <div className="d-flex align-items-center justify-content-between gap-2 mb-3">
                       <h6 className="fw-bold text-enterprise mb-0 text-truncate">{admin.first_name} {admin.last_name}</h6>
-                      <Badge bg="warning-subtle" text="warning-emphasis" className="rounded-pill px-3 py-1 small border border-warning-subtle flex-shrink-0" style={{ fontSize: '0.65rem' }}>
-                        ผู้ดูแลระบบ
-                      </Badge>
+                      {admin.is_primary ? (
+                        <Badge bg="danger" className="rounded-pill px-4 py-2 shadow-sm fw-bold text-white flex-shrink-0" style={{ fontSize: '0.7rem' }}>
+                          ผู้ดูแลระบบสูงสุด
+                        </Badge>
+                      ) : (
+                        <Badge bg="warning" text="dark" className="rounded-pill px-4 py-2 shadow-sm fw-bold flex-shrink-0" style={{ fontSize: '0.7rem' }}>
+                          ผู้ดูแลระบบ
+                        </Badge>
+                      )}
                     </div>
                     
                     <div className="contact-info mt-4">

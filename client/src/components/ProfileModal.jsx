@@ -8,7 +8,7 @@ import axios from 'axios'
 const API_BASE_URL = '/api'
 
 function ProfileModal({ show, onHide }) {
-  const { user, token } = useAuth()
+  const { user, token, getRoleLabel } = useAuth()
   const [editing, setEditing] = useState(false)
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -88,7 +88,7 @@ function ProfileModal({ show, onHide }) {
                 <div>
                   <div className="text-muted small fw-bold text-uppercase" style={{ fontSize: '0.65rem' }}>ระดับผู้ใช้งาน</div>
                   <div className="fw-bold text-enterprise">
-                    {user?.role === 'admin' ? 'ผู้ดูแลระบบ' : 'ผู้ใช้ทั่วไป'}
+                    {getRoleLabel()}
                   </div>
                 </div>
               </div>
@@ -124,14 +124,9 @@ function ProfileModal({ show, onHide }) {
           </div>
         ) : (
           <Form onSubmit={handleSubmit} className="profile-edit">
-            <div className="mb-4 pb-2 border-bottom border-light d-flex align-items-center justify-content-between">
-              <div>
-                <h6 className="fw-bold mb-0 text-enterprise">แก้ไขข้อมูลส่วนตัว</h6>
-                <p className="text-muted small mb-0">ปรับปรุงข้อมูลของคุณให้เป็นปัจจุบัน</p>
-              </div>
-              <Button variant="light" size="sm" className="rounded-circle p-1 border-0" onClick={() => setEditing(false)}>
-                <X size={18} className="text-muted" />
-              </Button>
+            <div className="mb-4 pb-2 border-bottom border-light">
+              <h6 className="fw-bold mb-0 text-enterprise">แก้ไขข้อมูลส่วนตัว</h6>
+              <p className="text-muted small mb-0">ปรับปรุงข้อมูลของคุณให้เป็นปัจจุบัน</p>
             </div>
             
             <Row className="g-3 mb-3">

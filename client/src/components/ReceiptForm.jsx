@@ -36,68 +36,10 @@ function CustomDateInput({ value, onClick, placeholder }) {
   )
 }
 
-const DEFAULT_NAME_TYPES = [
-  { value: 'นาย', label: 'นาย' },
-  { value: 'นาง', label: 'นาง' },
-  { value: 'นางสาว', label: 'นางสาว' },
-  { value: 'ว่าที่ร้อยตรี', label: 'ว่าที่ร้อยตรี' }
-]
-
-const DEFAULT_ACADEMIC_YEARS = [
-  { value: 2567, label: '2567' },
-  { value: 2568, label: '2568' },
-  { value: 2569, label: '2569' },
-  { value: 2570, label: '2570' },
-  { value: 2571, label: '2571' },
-  { value: 2572, label: '2572' },
-  { value: 2573, label: '2573' }
-]
-
 const SEMESTERS = [
   { value: 1, label: '1' },
   { value: 2, label: '2' },
   { value: 3, label: '3' }
-]
-
-const DEFAULT_POSITIONS = [
-  { value: 'นักวิชาการคอมพิวเตอร์', label: 'นักวิชาการคอมพิวเตอร์' },
-  { value: 'เจ้าหน้าที่คอมพิวเตอร์', label: 'เจ้าหน้าที่คอมพิวเตอร์' },
-  { value: 'ปฏิบัติงานโสตทัศนศึกษา', label: 'ปฏิบัติงานโสตทัศนศึกษา' },
-  { value: 'ช่างเครื่องคอมพิวเตอร์', label: 'ช่างเครื่องคอมพิวเตอร์' },
-  { value: 'เจ้าหน้าที่ธุรการ', label: 'เจ้าหน้าที่ธุรการ' },
-  { value: 'นักวิชาการศึกษา', label: 'นักวิชาการศึกษา' },
-  { value: 'ผู้ปฏิบัติงานบริหาร', label: 'ผู้ปฏิบัติงานบริหาร' },
-  { value: 'นักวิชาการโสตทัศนศึกษา ระดับปฏิบัติการ', label: 'นักวิชาการโสตทัศนศึกษา ระดับปฏิบัติการ' },
-  { value: 'นักวิชาการโสตทัศนศึกษา', label: 'นักวิชาการโสตทัศนศึกษา' }
-]
-
-const DEFAULT_AGENCIES = [
-  { value: 'ศูนย์คอมพิวเตอร์', label: 'ศูนย์คอมพิวเตอร์' },
-  { value: 'ศูนย์เทคโนโลยีทางการศึกษา', label: 'ศูนย์เทคโนโลยีทางการศึกษา' },
-  { value: 'ศูนย์ภาษา', label: 'ศูนย์ภาษา' },
-  { value: 'ศูนย์ประชาสัมพันธ์', label: 'ศูนย์ประชาสัมพันธ์' },
-  { value: 'งานการเงิน', label: 'งานการเงิน' },
-  { value: 'งานทะเบียนและประมวลผล', label: 'งานทะเบียนและประมวลผล' }
-]
-
-const DEFAULT_SUPERVISORS = [
-  { value: 'ผศ.ดร.คมยุทธ ไชยวงษ์', label: 'ผศ.ดร.คมยุทธ ไชยวงษ์' },
-  { value: 'นายทรงศักดิ์ พลลาภาญ', label: 'นายทรงศักดิ์ พลลาภาญ' },
-  { value: 'น.ส.ภัสส์ศิศา ศรีลาภานนท์', label: 'น.ส.ภัสส์ศิศา ศรีลาภานนท์' },
-  { value: 'ดร.ณรงค์ บุญสิริสัมพันธ์', label: 'ดร.ณรงค์ บุญสิริสัมพันธ์' },
-  { value: 'ดร.สุไพลิน พิชัย', label: 'ดร.สุไพลิน พิชัย' },
-  { value: 'นางศุภกานต์ บำรุงราษฎร์รัศมี', label: 'นางศุภกานต์ บำรุงราษฎร์รัศมี' },
-  { value: 'ผู้ช่วยศาสตราจารย์อีวา พรหมเทศ', label: 'ผู้ช่วยศาสตราจารย์อีวา พรหมเทศ' },
-  { value: 'นางจุฬาภรณ์ ไตรยราช', label: 'นางจุฬาภรณ์ ไตรยราช' }
-]
-
-const DEFAULT_SUPERVISOR_POSITIONS = [
-  { value: 'ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ', label: 'ผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ' },
-  { value: 'รักษาการผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ', label: 'รักษาการผู้อำนวยการสำนักวิทยบริการและเทคโนโลยีสารสนเทศ' },
-  { value: 'ผู้อำนวยการสำนักงานอธิการบดี', label: 'ผู้อำนวยการสำนักงานอธิการบดี' },
-  { value: 'ผู้อำนวยการ กองกลาง สำนักงานอธิการบดี', label: 'ผู้อำนวยการ กองกลาง สำนักงานอธิการบดี' },
-  { value: 'ผู้อำนวยการสำนักส่งเสริมวิชาการและงานทะเบียน', label: 'ผู้อำนวยการสำนักส่งเสริมวิชาการและงานทะเบียน' },
-  { value: 'หัวหน้างานทะเบียนและประมวลผล', label: 'หัวหน้างานทะเบียนและประมวลผล' }
 ]
 
 function ReceiptForm() {
@@ -142,29 +84,12 @@ function ReceiptForm() {
     }
   }
 
-  const NAME_TYPES = categories.name_type?.length > 0
-    ? categories.name_type.map(c => ({ value: c.value, label: c.label }))
-    : DEFAULT_NAME_TYPES
-
-  const ACADEMIC_YEARS = categories.academic_year?.length > 0
-    ? categories.academic_year.map(c => ({ value: parseInt(c.value), label: c.label }))
-    : DEFAULT_ACADEMIC_YEARS
-
-  const POSITIONS = categories.location?.length > 0
-    ? categories.location.map(c => ({ value: c.value, label: c.label }))
-    : DEFAULT_POSITIONS
-
-  const AGENCIES = categories.agency?.length > 0
-    ? categories.agency.map(c => ({ value: c.value, label: c.label }))
-    : DEFAULT_AGENCIES
-
-  const SUPERVISORS = categories.supervisor?.length > 0
-    ? categories.supervisor.map(c => ({ value: c.value, label: c.label }))
-    : DEFAULT_SUPERVISORS
-
-  const SUPERVISOR_POSITIONS = categories.supervisor_position?.length > 0
-    ? categories.supervisor_position.map(c => ({ value: c.value, label: c.label }))
-    : DEFAULT_SUPERVISOR_POSITIONS
+  const NAME_TYPES = categories.name_type?.map(c => ({ value: c.value, label: c.label })) || []
+  const ACADEMIC_YEARS = categories.academic_year?.map(c => ({ value: parseInt(c.value), label: c.label })) || []
+  const POSITIONS = categories.location?.map(c => ({ value: c.value, label: c.label })) || []
+  const AGENCIES = categories.agency?.map(c => ({ value: c.value, label: c.label })) || []
+  const SUPERVISORS = categories.supervisor?.map(c => ({ value: c.value, label: c.label })) || []
+  const SUPERVISOR_POSITIONS = categories.supervisor_position?.map(c => ({ value: c.value, label: c.label })) || []
 
   const handleChange = (e) => {
     const { name, value } = e.target

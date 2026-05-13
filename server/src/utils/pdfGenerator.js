@@ -142,7 +142,7 @@ function generatePage1(doc, data) {
       '',
       '08.00 น.',
       '16.30 น.',
-      amount.toString(),
+      formatNumber(amount),
       ''
     ]
 
@@ -169,7 +169,7 @@ function generatePage1(doc, data) {
   // คอลัมน์จำนวนเงิน
   xPos = tableLeft + mergedWidth
   doc.rect(xPos, yPos, colWidths[4], rowHeight).stroke()
-  doc.text(totalAmount.toString(), xPos, textY, { width: colWidths[4], align: 'center' })
+  doc.text(formatNumber(totalAmount), xPos, textY, { width: colWidths[4], align: 'center' })
   
   // คอลัมน์หมายเหตุ
   xPos += colWidths[4]
@@ -364,7 +364,7 @@ function generatePage2(doc, data) {
 
   // บาท - จัดกึ่งกลาง
   doc.rect(tableLeft + tableWidth * 0.7, yPos, tableWidth * 0.15, dataRowHeight).stroke()
-  doc.text(totalAmount.toString(), tableLeft + tableWidth * 0.7, yPos + cellPadding, { 
+  doc.text(formatNumber(totalAmount), tableLeft + tableWidth * 0.7, yPos + cellPadding, { 
     width: tableWidth * 0.15, 
     align: 'center' 
   })
@@ -388,7 +388,7 @@ function generatePage2(doc, data) {
   })
 
   doc.rect(tableLeft + tableWidth * 0.7, yPos, tableWidth * 0.15, sumRowHeight).stroke()
-  doc.text(totalAmount.toString(), tableLeft + tableWidth * 0.7, yPos + cellPadding, { 
+  doc.text(formatNumber(totalAmount), tableLeft + tableWidth * 0.7, yPos + cellPadding, { 
     width: tableWidth * 0.15, 
     align: 'center' 
   })
@@ -402,7 +402,7 @@ function generatePage2(doc, data) {
   // ⭐ จำนวนเงินตัวอักษร
   doc.moveDown(1)
   doc.font('THSarabun').fontSize(16)
-  doc.text(`จำนวนเงิน ${totalAmount} บาท (${amountInWords})`, 50, doc.y)
+  doc.text(`จำนวนเงิน ${formatNumber(totalAmount)} บาท (${amountInWords})`, 50, doc.y)
   doc.moveDown(2)
 
   // ⭐ ลายเซ็น - ชิดขวาจัดกึ่งกลาง
@@ -423,6 +423,13 @@ function generatePage2(doc, data) {
   doc.text(sign2Text, signStartX, doc.y, {
     width: maxSignWidth,
     align: 'center'
+  })
+}
+
+function formatNumber(number) {
+  return Number(number).toLocaleString('th-TH', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
   })
 }
 

@@ -138,19 +138,12 @@ export const User = {
 
     return result.rows[0]
   },
-
-  // ลบ admin (เปลี่ยน role เป็น user)
+  
+  // ลบ admin
   deleteAdmin: async (id) => {
-    const result = await pool.query(
-      `DELETE FROM users WHERE id = $1 RETURNING id`,
+    await pool.query(
+      `DELETE FROM users WHERE id = $1`,
       [id]
     )
-  },
-  findById: async (id) => {
-    const result = await pool.query(
-      'SELECT id, email, first_name, last_name, role, is_active, is_primary FROM users WHERE id = $1',
-      [id]
-    )
-    return result.rows[0]
   }
 }

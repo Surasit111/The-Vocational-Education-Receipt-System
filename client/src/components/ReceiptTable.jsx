@@ -142,7 +142,9 @@ function ReceiptTable({
                 </td>
                 <td>
                   <div className="d-flex flex-column" style={{ lineHeight: 1.2 }}>
-                    <span className="fw-bold text-enterprise" style={{ fontSize: '0.85rem' }}>{receipt.creator_first_name || 'System'}</span>
+                    <span className="fw-bold text-enterprise" style={{ fontSize: '0.85rem' }}>
+                      {receipt.creator_first_name} {receipt.creator_last_name}
+                    </span>
                     <span className="text-muted mt-1" style={{ fontSize: '0.7rem' }}>
                       {receipt.creator_phone || '-'}
                     </span>

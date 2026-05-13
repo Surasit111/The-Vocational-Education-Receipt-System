@@ -9,7 +9,7 @@ import ContactModal from './ContactModal'
 import ProfileModal from './ProfileModal'
 
 function AppNavbar() {
-  const { user, logout, isAdmin, loading } = useAuth()
+  const { user, logout, isAdmin, loading, getRoleLabel } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -84,28 +84,45 @@ function AppNavbar() {
               >
                 <PhoneCall size={16} className="me-2" /> ติดต่อเรา
               </Nav.Link>
+
+              {/* เมนูสำหรับมือถือ (แสดงเฉพาะเมื่อหน้าจอเล็ก) */}
+              {user && (
+                <div className="d-lg-none mt-3 pt-3 border-top">
+                  <div className="px-3 mb-3">
+                    <div className="fw-bold text-enterprise small">{user?.first_name} {user?.last_name}</div>
+                    <div className="text-muted" style={{ fontSize: '0.7rem' }}>{getRoleLabel()}</div>
+                  </div>
+                  <Nav.Link 
+                    onClick={() => setShowProfile(true)}
+                    className="px-3 py-2 rounded-3 small fw-semibold text-muted hover-bg-light d-flex align-items-center"
+                  >
+                    <UserCircle size={16} className="me-2" /> โปรไฟล์ของฉัน
+                  </Nav.Link>
+                  <Nav.Link 
+                    onClick={handleLogout}
+                    className="px-3 py-2 rounded-3 small fw-semibold text-danger hover-bg-danger-subtle d-flex align-items-center"
+                  >
+                    <LogOut size={16} className="me-2" /> ออกจากระบบ
+                  </Nav.Link>
+                </div>
+              )}
             </Nav>
 
-            <Nav className="align-items-center gap-3">
+            <Nav className="align-items-center gap-3 d-none d-lg-flex">
               {user ? (
                 <Dropdown align="end">
                   <Dropdown.Toggle 
                     variant="link" 
                     className="text-decoration-none p-2 border rounded-3 shadow-none d-flex align-items-center gap-2 bg-light-subtle hover-bg-light transition-all"
                   >
-                    <div className="text-end d-none d-sm-block ps-1" style={{ lineHeight: 1.1 }}>
-                      <div className="fw-bold text-enterprise small">{user?.first_name} {user?.last_name}</div>
-                      <div className="text-muted small" style={{ fontSize: '0.65rem' }}>{showAdminMenu ? 'ผู้ดูแลระบบ' : 'ผู้ใช้ทั่วไป'}</div>
+                    <div className="text-end d-none d-sm-block ps-1" style={{ lineHeight: 1.3 }}>
+                      <div className="fw-bold text-enterprise small mb-1">{user?.first_name} {user?.last_name}</div>
+                      <div className="text-muted small" style={{ fontSize: '0.65rem' }}>{getRoleLabel()}</div>
                     </div>
-                    <ChevronDown size={14} className="text-muted d-none d-md-block me-1" />
+                    <ChevronDown size={14} className="text-muted me-1" />
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu className="border-0 shadow-lg rounded-4 mt-2 py-2 p-2" style={{ minWidth: '240px' }}>
-                    <div className="px-3 py-3 mb-2 d-sm-none border-bottom">
-                      <div className="fw-bold text-enterprise small">{user?.first_name} {user?.last_name}</div>
-                      <div className="text-muted small" style={{ fontSize: '0.65rem' }}>{showAdminMenu ? 'ผู้ดูแลระบบ' : 'ผู้ใช้ทั่วไป'}</div>
-                    </div>
-                    
                     <Dropdown.Item onClick={() => setShowProfile(true)} className="rounded-3 d-flex align-items-center gap-2 py-2 mb-2 border hover-bg-light transition-all bg-light-subtle">
                       <div>
                         <div className="small fw-bold">โปรไฟล์ของฉัน</div>

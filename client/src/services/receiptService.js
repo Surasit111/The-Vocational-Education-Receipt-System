@@ -59,5 +59,24 @@ export const receiptService = {
     } catch (error) {
       throw new Error(error.response?.data?.message || 'ไม่สามารถลบใบเสร็จได้')
     }
+  },
+
+  // สร้าง PDF โดยไม่บันทึกลงฐานข้อมูล (สำหรับผู้ใช้ทั่วไป)
+  generatePDFOnly: async (receiptData) => {
+    try {
+      const response = await api.post('/receipts/generate-pdf', receiptData, {
+        responseType: 'blob' // สำคัญมาก: ต้องระบุว่าเป็น blob เพื่อรับไฟล์ PDF
+      })
+      
+      // สร้าง URL จาก Blob และเปิดในแท็บใหม่
+      const blob = new Blob([response.data], { type: 'application/pdf' })
+      const url = window.URL.createObjectURL(blob)
+      window.open(url, '_blank')
+      
+      return true
+    } catch (error) {
+      console.error('PDF Generation Error:', error)
+      throw new Error('ไม่สามารถสร้างไฟล์ PDF ได้')
+    }
   }
 }
