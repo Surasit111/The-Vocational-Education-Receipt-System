@@ -3,9 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { Form, Button, Card, Alert, Container, Row, Col, InputGroup } from 'react-bootstrap'
 import { User, Mail, Phone, Lock, UserPlus, ArrowRight, UserCheck } from 'lucide-react'
 import { toast } from 'react-hot-toast'
-import axios from 'axios'
-
-const API_BASE_URL = '/api'
+import api from '../services/api'
 
 function RegisterPage() {
   const navigate = useNavigate()
@@ -35,7 +33,7 @@ function RegisterPage() {
     setLoading(true)
     setError('')
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/register`, formData)
+      const response = await api.post('/auth/register', formData)
       if (response.data.success) {
         toast.success('สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ')
         navigate('/login')

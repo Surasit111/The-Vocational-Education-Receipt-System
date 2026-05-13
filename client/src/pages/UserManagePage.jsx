@@ -2,11 +2,9 @@ import { useState, useEffect } from 'react'
 import { Container, Card, Row, Col, Table, Badge, Button, Form, InputGroup, Spinner, Modal } from 'react-bootstrap'
 import { Users, UserPlus, Search, Shield, ShieldCheck, Mail, Phone, Trash2, X, Save, User, Edit3 } from 'lucide-react'
 import { toast } from 'react-hot-toast'
-import axios from 'axios'
+import api from '../services/api'
 import { useAuth } from '../contexts/AuthContext'
 import ConfirmDeleteModal from '../components/ConfirmDeleteModal'
-
-const API_BASE_URL = '/api'
 
 function UserManagePage() {
   const { user: currentUser, token } = useAuth()
@@ -46,10 +44,8 @@ function UserManagePage() {
   const fetchAdmins = async () => {
     setLoading(true)
     try {
-      // ⭐ เปลี่ยนไปใช้ Endpoint /manage ให้ถูกต้องตาม Server
-      const response = await axios.get(`${API_BASE_URL}/users/admins/manage`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
+      // ⭐ ใช้ api instance ที่ตั้งค่า URL ไว้แล้ว
+      const response = await api.get('/users/admins/manage')
       
       // ⭐ รับข้อมูลจาก response.data.data ตามโครงสร้างที่ Server ส่งมา
       const adminList = response.data?.data || []
@@ -69,10 +65,8 @@ function UserManagePage() {
   const handleAddAdmin = async (e) => {
     e.preventDefault()
     try {
-      // ⭐ เปลี่ยน Endpoint ให้ตรงตาม userRoutes.js
-      await axios.post(`${API_BASE_URL}/users/admins/manage`, formData, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
+      // ⭐ ใช้ api instance
+      await api.post('/users/admins/manage', formData)
       toast.success('เพิ่มผู้ใช้สำเร็จ')
       setFormData({ email: '', password: '', first_name: '', last_name: '', phone: '', role: 'admin' })
       setShowAddForm(false)
@@ -92,10 +86,8 @@ function UserManagePage() {
   const confirmRemoveAdmin = async () => {
     if (!deleteTarget?.id) return
     try {
-      // ⭐ ใช้ METHOD DELETE ตามมาตรฐาน REST ของเซิร์ฟเวอร์
-      await axios.delete(`${API_BASE_URL}/users/admins/manage/${deleteTarget.id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
+      // ⭐ ใช้ api instance
+      await api.delete(`/users/admins/manage/${deleteTarget.id}`)
       toast.success('ลบสิทธิ์ผู้ใช้เรียบร้อย')
       setShowDeleteModal(false)
       fetchAdmins()
@@ -125,9 +117,7 @@ function UserManagePage() {
   const handleEditSubmit = async (e) => {
     e.preventDefault()
     try {
-      await axios.put(`${API_BASE_URL}/users/admins/manage/${editFormData.id}`, editFormData, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
+      await api.put(`/users/admins/manage/${editFormData.id}`, editFormData)
       toast.success('แก้ไขข้อมูลสำเร็จ')
       setShowEditForm(false)
       fetchAdmins()

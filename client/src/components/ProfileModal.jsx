@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Modal, Form, Button, Row, Col, Badge, InputGroup } from 'react-bootstrap'
 import { toast } from 'react-hot-toast'
+import api from '../services/api'
 import { useAuth } from '../contexts/AuthContext'
 import { User, Mail, Phone, Shield, Edit3, Save, X, UserCircle } from 'lucide-react'
-import axios from 'axios'
-
-const API_BASE_URL = '/api'
 
 function ProfileModal({ show, onHide }) {
   const { user, token, getRoleLabel } = useAuth()
@@ -35,16 +33,7 @@ function ProfileModal({ show, onHide }) {
     e.preventDefault()
     setLoading(true)
     try {
-      const response = await axios.put(
-        `${API_BASE_URL}/users/profile`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          }
-        }
-      )
+      const response = await api.put('/users/profile', formData)
 
       if (response.data.success) {
         toast.success('อัปเดตโปรไฟล์สำเร็จ!')

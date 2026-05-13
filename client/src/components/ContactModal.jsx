@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Modal, Button, Row, Col, Badge, Spinner } from 'react-bootstrap'
 import { Phone, Mail, User, PhoneCall, Info } from 'lucide-react'
-import axios from 'axios'
-
-const API_BASE_URL = '/api'
+import api from '../services/api'
 
 function ContactModal({ show, onHide }) {
   const [admins, setAdmins] = useState([])
@@ -18,7 +16,7 @@ function ContactModal({ show, onHide }) {
   const fetchAdmins = async () => {
     setLoading(true)
     try {
-      const response = await axios.get(`${API_BASE_URL}/users/admins`)
+      const response = await api.get('/users/admins')
       setAdmins(response.data?.data || [])
     } catch (error) {
       console.error('Fetch admins error:', error)

@@ -3,7 +3,7 @@ import api from './api'
 
 export const adminService = {
   // ดึงข้อมูลแอดมินทั้งหมด
-  getAdmins: async () => {
+  getAll: async () => {
     try {
       const response = await api.get('/users/admins/manage')
       return response.data
@@ -13,7 +13,7 @@ export const adminService = {
   },
 
   // เพิ่มแอดมินใหม่
-  createAdmin: async (adminData) => {
+  create: async (adminData) => {
     try {
       const response = await api.post('/users/admins/manage', adminData)
       return response.data
@@ -23,7 +23,7 @@ export const adminService = {
   },
 
   // แก้ไขข้อมูลแอดมิน
-  updateAdmin: async (id, adminData) => {
+  update: async (id, adminData) => {
     try {
       const response = await api.put(`/users/admins/manage/${id}`, adminData)
       return response.data
@@ -33,7 +33,7 @@ export const adminService = {
   },
 
   // ลบแอดมิน
-  deleteAdmin: async (id) => {
+  delete: async (id) => {
     try {
       const response = await api.delete(`/users/admins/manage/${id}`)
       return response.data
@@ -42,3 +42,9 @@ export const adminService = {
     }
   }
 }
+
+// Alias เพื่อความเข้ากันได้
+adminService.getAdmins = adminService.getAll;
+adminService.createAdmin = adminService.create;
+adminService.updateAdmin = adminService.update;
+adminService.deleteAdmin = adminService.delete;

@@ -2,6 +2,7 @@ import { Table, Badge, Button } from 'react-bootstrap'
 import { FileText, Trash2, User, Phone, ChevronRight, Download } from 'lucide-react'
 import { receiptService } from '../services/receiptService'
 import { toast } from 'react-hot-toast'
+import api from '../services/api'
 import { useState } from 'react'
 import ConfirmDeleteModal from './ConfirmDeleteModal'
 
@@ -30,17 +31,11 @@ function ReceiptTable({
   const handleViewPDF = async (receipt) => {
     try {
       toast.loading('กำลังโหลดเอกสาร...')
-      const token = localStorage.getItem('token')
-      const API_BASE_URL = '/api'
-      const response = await fetch(`${API_BASE_URL.replace('/api', '')}/api/receipts/${receipt.id}/pdf`, {  
-        method: 'GET',
-        headers: { 'Authorization': `Bearer ${token}` }
+      const response = await api.get(`/receipts/${receipt.id}/pdf`, {
+        responseType: 'blob'
       })
 
-      if (!response.ok) throw new Error('ไม่สามารถเปิด PDF ได้')
-
-      const blob = await response.blob()
-      const url = window.URL.createObjectURL(blob)
+      const url = window.URL.createObjectURL(response.data)
       window.open(url, '_blank')
       toast.dismiss()
     } catch (error) {
