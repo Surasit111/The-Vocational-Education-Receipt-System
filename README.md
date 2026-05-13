@@ -10,7 +10,7 @@
 
 ## -------------------------------------------------------------------
 
-🔗 **[Live Demo](https://gsw-receipt-system.vercel.app/)**
+🔗 **[Live Demo](https://the-vocational-education-receipt-sy-delta.vercel.app)**
 
 ## -------------------------------------------------------------------
 
@@ -30,17 +30,30 @@
 
 ## Screenshots & Demos
 
-### Modern Report Summary
-หน้าจอสรุปรายงานการออกใบเสร็จที่ปรับปรุงใหม่ เน้นความสะอาดตา (Minimalist) ค้นหาข้อมูลย้อนหลังได้รวดเร็ว
-![Report Summary](docs/screenshots/Dashboard.png)
+### Smart PDF Generation (GIFs)
+| **Authenticated Workflow (Staff/Admin)** | **Privacy-First Public Engine (Guest)** |
+|---|---|
+| ![Logged In Flow](docs/screenshots/Receipt_Logged_In.gif) | ![Public Flow](docs/screenshots/Receipt-Public.gif) |
+| *บันทึกข้อมูลลงฐานข้อมูล พร้อมออกเอกสารทันที* | *ออกใบเสร็จดิจิทัลแบบไม่เก็บข้อมูล มุ่งเน้นความเป็นส่วนตัว* |
 
-### Hierarchical User Management
-ระบบจัดการผู้ใช้ที่แบ่งระดับสิทธิ์ชัดเจนผ่าน Badge สีสันที่สื่อความหมาย (แดง/ส้ม/เทา) พร้อม Interactive Modals
-![User Management](docs/screenshots/Management.png)
+---
 
-### Public Receipt Issuance Form
-แบบฟอร์มสาธารณะสำหรับการออกใบเสร็จที่รวดเร็ว ไม่ต้อง Login ก็ใช้งานได้ (เจน PDF ทันที ไม่เก็บข้อมูล)
-![Form](docs/screenshots/Form.png)
+### System Interface
+#### Real-time Summary Dashboard
+ระบบวิเคราะห์และสรุปผลการออกใบเสร็จที่มาพร้อม Filter อัจฉริยะ ช่วยให้การค้นหาข้อมูลย้อนหลังเป็นเรื่องง่ายและแม่นยำ
+![Summary Report](docs/screenshots/Summary-Report.png)
+
+#### Hierarchical User Management (RBAC)
+การจัดการสิทธิ์เข้าถึงตามลำดับชั้นที่เข้มงวด (Super Admin, Admin, Staff) ผ่าน UI ที่ใช้งานง่ายและ Badge สถานะที่ชัดเจน
+![User Management](docs/screenshots/User-Management.png)
+
+#### Fast-Issuance Public Form
+นวัตกรรมการออกเอกสารที่รวดเร็วผ่านแบบฟอร์มสาธารณะ ไม่ต้องล็อกอินก็สามารถเจนเอกสาร PDF คุณภาพสูงได้ทันที
+![Form Receipt](docs/screenshots/Forms-Receipt.png)
+
+#### Professional PDF Output
+ตัวอย่างเอกสารที่ผลิตจากระบบ รองรับการจัดรูปแบบตัวเลขทศนิยมและเครื่องหมายคั่นหลักพันตามมาตรฐานบัญชี
+🔗 **[ดูตัวอย่างไฟล์ PDF ตัวจริง](docs/screenshots/PDF_Results.pdf)**
 
 ---
 
@@ -62,7 +75,6 @@
 | Technology | Version | เหตุผลที่เลือก |
 |---|---|---|
 | **React** | 19.2 | พัฒนา UI ที่ลื่นไหลและจัดการ State ของใบเสร็จที่ซับซ้อนได้อย่างดีเยี่ยม |
-| **Lucide Icons** | Latest | ชุดไอคอนที่สวยงามและมีความหมายชัดเจน (Edit3, Trash2, etc.) |
 | **Node.js / Express** | 4.18 | จัดการ API Endpoints และระบบ Authentication ที่ขยายตัวง่าย |
 | **PostgreSQL (Neon)** | 16 | ฐานข้อมูลแบบ Serverless บน Cloud ที่ขยายตัวได้ง่ายและเสถียรสูง |
 | **Vercel** | Cloud | Deployment Platform สำหรับทั้ง Frontend และ Backend แบบ Serverless |
